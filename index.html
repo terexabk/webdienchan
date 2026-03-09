@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Blogge | Personal Blog Site</title>
+
+  <!--Meta For No Index-->
+  <meta name="robots" content="noindex, Nofollow, Noimageindex">
+
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <!-- Theme Stylesheet -->
+  <link href="css/style.css" rel="stylesheet" />
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="images/favicon.svg" type="image/x-icon" />
+  <link rel="icon" href="images/favicon.svg" type="image/x-icon" />
+</head>
+
+<body>
+
+<!-- Navbar Start -->
+<nav class="main-nav navbar navbar-expand-lg">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" href="index.html">
+      <img class="logo-main" src="images/logo.svg" alt="logo" />
+    </a>
+    <!-- Toogle Button -->
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mainNav">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="collapse navbar-collapse nav-list" id="mainNav">
+      <!-- Navigation Links -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+      <!-- Social Link -->
+      <ul class="main-nav-social">
+        <li>
+          <a href="https://www.facebook.com/nguyen.lieu.925602"><i class="fa fa-facebook"></i></a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/nguyen.lieu.925602"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/nguyen.lieu.925602"><i class="fa fa-instagram"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->
+
+<section class="featured">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <article class="featured-post">
+          <div class="featured-post-content">
+            <div class="featured-post-author">
+              <img src="images/author.png" alt="author" />
+              <p>By <span>Nguyen Lieu</span></p>
+            </div>
+            <a href="single-blog.html" class="featured-post-title">
+              Every Next Level of Your Life Will Demand
+            </a>
+            <ul class="featured-post-meta">
+              <li>
+                <i class="fa fa-clock-o"></i>
+                October 19, 2020 - 3 min read
+              </li>
+            </ul>
+          </div>
+          <div class="featured-post-thumb">
+            <img src="images/featured-post.jpg" alt="feature-post-thumb" />
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blog">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="blog-section-title">
+          <h2>Articles</h2>
+          <p>View the latest news on Blogger</p>
+        </div>
+        <div id="dynamic-posts"></div>
+        <div class="blog-post-pagination">
+          <nav aria-label="Page navigation example" class="nav-bg">
+            <ul class="pagination"></ul>
+          </nav>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="blog-post-widget">
+          <div class="latest-widget-title">
+            <h2>Trending post</h2>
+          </div>
+          <div id="trending-posts"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="instagram">
+  <a href="https://www.facebook.com/nguyen.lieu.925602">
+    <i class="fa fa-instagram" aria-hidden="true"></i>
+    <span>@Nguyen_Lieu</span>
+  </a>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="instagram-item">
+
+          <div class="instagram-item-thum">
+            <img src="images/blog/1.jpg" alt="image">
+          </div>
+          <div class="instagram-item-thum">
+            <img src="images/blog/2.jpg" alt="image">
+          </div>
+          <div class="instagram-item-thum">
+            <img src="images/blog/3.jpg" alt="image">
+          </div>
+          <div class="instagram-item-thum">
+            <img src="images/blog/4.jpg" alt="image">
+          </div>
+          <div class="instagram-item-thum">
+            <img src="images/blog/5.jpg" alt="image">
+          </div>
+          <div class="instagram-item-thum">
+            <img src="images/blog/6.jpg" alt="image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 mx-auto text-center">
+        <div class="footer-logo">
+          <img src="images/logo.svg" alt="logo" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="footer-nav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="sociale-icon">
+          <ul>
+            <li>
+              <a href="#"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-instagram"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="copy-right">
+          <p>© Copyright <span id="copyrightYear"></span> - Developed by <a href="https://www.facebook.com/nguyen.thanhdung.12/" target="_blank">teresabk</a> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Vendor JS -->
+<script src="vendor/jQuery/jquery.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<script src="vendor/slick/slick.min.js"></script>
+<script src="vendor/g-map/gmap.js"></script>
+<!-- Main JS -->
+<script src="js/script.js"></script>
+<script>
+  (function () {
+    if (typeof window.$ !== 'function') return;
+
+    function normalizeImg(src, fallback) {
+      if (!src) return fallback;
+      if (src.startsWith('/')) return src;
+      return 'images/blog/' + src;
+    }
+
+    $(function () {
+      var currentPage = 1;
+      var totalPages = 1;
+
+      function renderArticlesPage(page) {
+        $.get('/api/posts', { page: page, limit: 7 }, function (res) {
+          var posts = Array.isArray(res) ? res : (res.items || []);
+          if (!posts.length) return;
+
+          currentPage = res.page || page || 1;
+          totalPages = res.pages || 1;
+
+          // Featured (bài mới nhất) lấy từ bài đầu tiên của trang 1
+          if (currentPage === 1) {
+            var newest = posts[0];
+            if (newest) {
+              var $feat = $('.featured-post');
+              if ($feat.length) {
+                var featLink = 'single-blog.html?id=' + encodeURIComponent(newest._id);
+                var featImgSrc = normalizeImg(newest.img_introduce, 'images/featured-post.jpg');
+
+                $feat.find('.featured-post-title')
+                  .attr('href', featLink)
+                  .text(newest.title || '');
+
+                var $authorSpan = $feat.find('.featured-post-author span');
+                if ($authorSpan.length) {
+                  $authorSpan.text(newest.audthor || '');
+                }
+
+                var $metaLi = $feat.find('.featured-post-meta li');
+                if ($metaLi.length) {
+                  $metaLi.contents().filter(function () {
+                    return this.nodeType === 3;
+                  }).remove();
+                  $metaLi.append(' ' + (newest.datetime || ''));
+                }
+
+                var $featImg = $feat.find('.featured-post-thumb img');
+                if ($featImg.length) {
+                  $featImg.attr('src', featImgSrc);
+                }
+              }
+            }
+          }
+
+          // Articles list (7 bài / trang)
+          var $container = $('#dynamic-posts');
+          if (!$container.length) return;
+
+          $container.empty();
+
+          posts.forEach(function (post) {
+            var imgSrc = normalizeImg(post.img_introduce, 'images/blog/blog-thum-1.png');
+            var link = 'single-blog.html?id=' + encodeURIComponent(post._id);
+
+            var html =
+              '<article class="blog-post">' +
+                '<div class="blog-post-thumb">' +
+                  '<a href="' + link + '">' +
+                    '<img src="' + imgSrc + '" alt="blog-thum" />' +
+                  '</a>' +
+                '</div>' +
+                '<div class="blog-post-content">' +
+                  '<div class="blog-post-tag">' +
+                    '<a href="category.html">Health</a>' +
+                  '</div>' +
+                  '<div class="blog-post-title">' +
+                    '<a href="' + link + '">' + (post.title || '') + '</a>' +
+                  '</div>' +
+                  '<div class="blog-post-meta">' +
+                    '<ul>' +
+                      '<li>By <a href="about.html">' + (post.audthor || '') + '</a></li>' +
+                      '<li><i class="fa fa-clock-o"></i> ' + (post.datetime || '') + '</li>' +
+                    '</ul>' +
+                  '</div>' +
+                  '<p>' + (post.content_introduce || '') + '</p>' +
+                  '<a href="' + link + '" class="blog-post-action">read more <i class="fa fa-angle-right"></i></a>' +
+                '</div>' +
+              '</article>';
+
+            $container.append(html);
+          });
+
+          // render pagination
+          var $pagination = $('.blog-post-pagination .pagination');
+          if (!$pagination.length) return;
+
+          $pagination.empty();
+
+          for (var i = 1; i <= totalPages; i++) {
+            var activeClass = i === currentPage ? ' active' : '';
+            var itemHtml =
+              '<li class="page-item' + activeClass + '">' +
+                '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>' +
+              '</li>';
+            $pagination.append(itemHtml);
+          }
+        });
+      }
+
+      // initial load
+      renderArticlesPage(1);
+
+      // handle pagination click
+      $(document).on('click', '.blog-post-pagination .page-link', function (e) {
+        e.preventDefault();
+        var page = parseInt($(this).data('page'), 10);
+        if (!page || page === currentPage) return;
+        renderArticlesPage(page);
+      });
+      // trending posts (top 4 theo count)
+      $.get('/api/posts/trending', function (posts) {
+        if (!Array.isArray(posts) || !posts.length) return;
+
+        var $wrap = $('#trending-posts');
+        if (!$wrap.length) return;
+
+        $wrap.empty();
+
+        posts.forEach(function (post) {
+          var imgSrc = normalizeImg(post.img_introduce, 'images/blog/blog-thum-8.png');
+          var link = 'single-blog.html?id=' + encodeURIComponent(post._id);
+
+          var html =
+            '<div class="latest-widget">' +
+              '<div class="latest-widget-thum">' +
+                '<a href="' + link + '">' +
+                  '<img src="' + imgSrc + '" alt="blog-thum" />' +
+                '</a>' +
+                '<div class="icon">' +
+                  '<a href="' + link + '">' +
+                    '<img src="images/blog/icon.svg" alt="icon" />' +
+                  '</a>' +
+                '</div>' +
+              '</div>' +
+              '<div class="latest-widget-content">' +
+                '<div class="content-title">' +
+                  '<a href="' + link + '">' + (post.title || '') + '</a>' +
+                '</div>' +
+                '<div class="content-meta">' +
+                  '<ul>' +
+                    '<li><i class="fa fa-clock-o"></i> ' + (post.datetime || '') + '</li>' +
+                  '</ul>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
+
+          $wrap.append(html);
+        });
+      });
+    });
+  })();
+</script>
+</body>
+
+</html>

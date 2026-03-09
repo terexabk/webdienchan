@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <title>Admin - Đăng bài viết</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="css/style.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="images/favicon.svg" type="image/x-icon" />
+  <link rel="icon" href="images/favicon.svg" type="image/x-icon" />
+
+  <style>
+    .admin-wrapper {
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+    .admin-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .admin-card h1 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .admin-form-group {
+      margin-bottom: 16px;
+    }
+    .admin-form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .admin-form-group input,
+    .admin-form-group textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    .admin-form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .admin-actions {
+      margin-top: 20px;
+    }
+    .btn-dang-bai {
+      display: inline-block;
+      padding: 10px 24px;
+      border-radius: 4px;
+      border: none;
+      background-color: #111827;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-dang-bai:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
+    .admin-status {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+    .admin-status--success { color: #16a34a; }
+    .admin-status--error { color: #dc2626; }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img class="logo-main" src="images/logo.svg" alt="logo" />
+    </a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mainNav">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="collapse navbar-collapse nav-list" id="mainNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="admin.html">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="admin-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="admin-card">
+          <h1>Đăng bài mới</h1>
+          <p>Nhập thông tin bài viết, nhấn <strong>“Đăng bài”</strong> để lưu vào MongoDB.</p>
+
+          <form id="admin-form" enctype="multipart/form-data">
+            <div class="admin-form-group">
+              <label for="title">Tiêu đề (title)</label>
+              <input type="text" id="title" name="title" required />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="audthor">Tác giả (audthor)</label>
+              <input type="text" id="audthor" name="audthor" required />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="datetime">Ngày giờ hiển thị (datetime)</label>
+              <input type="text" id="datetime" name="datetime" placeholder="VD: October 19, 2020 - 3 min read" required />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="img_introduce">Ảnh giới thiệu (img_introduce – chọn file ảnh)</label>
+              <input type="file" id="img_introduce" name="img_introduce" accept="image/*" required />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="content_introduce">Mô tả ngắn (content_introduce)</label>
+              <textarea id="content_introduce" name="content_introduce" required></textarea>
+            </div>
+
+            <hr />
+
+            <div class="admin-form-group">
+              <label for="title_block_1">Tiêu đề block 1 (title_block_1)</label>
+              <input type="text" id="title_block_1" name="title_block_1" />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="content_block_1">Nội dung block 1 (content_block_1)</label>
+              <textarea id="content_block_1" name="content_block_1"></textarea>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="hightlight_block_1">Đoạn highlight block 1 (hightlight_block_1)</label>
+              <input type="text" id="hightlight_block_1" name="hightlight_block_1" />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="img_block_1_1">Ảnh block 1 - 1 (img_block_1_1 – chọn file)</label>
+              <input type="file" id="img_block_1_1" name="img_block_1_1" accept="image/*" />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="img_block_1_2">Ảnh block 1 - 2 (img_block_1_2 – chọn file)</label>
+              <input type="file" id="img_block_1_2" name="img_block_1_2" accept="image/*" />
+            </div>
+
+            <hr />
+
+            <div class="admin-form-group">
+              <label for="title_block_2">Tiêu đề block 2 (title_block_2)</label>
+              <input type="text" id="title_block_2" name="title_block_2" />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="content_block_2">Nội dung block 2 (content_block_2)</label>
+              <textarea id="content_block_2" name="content_block_2"></textarea>
+            </div>
+
+            <div class="admin-actions">
+              <button type="submit" class="btn-dang-bai" id="btn-submit">Đăng bài</button>
+              <div id="admin-status" class="admin-status"></div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 mx-auto text-center">
+        <div class="footer-logo">
+          <img src="images/logo.svg" alt="logo" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="footer-nav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">Admin</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="sociale-icon">
+          <ul>
+            <li>
+              <a href="#"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-instagram"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="copy-right">
+          <p>© Admin page</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="vendor/jQuery/jquery.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<script src="vendor/slick/slick.min.js"></script>
+<script src="vendor/g-map/gmap.js"></script>
+
+<script>
+  (function() {
+    var form = document.getElementById('admin-form');
+    var btn = document.getElementById('btn-submit');
+    var statusEl = document.getElementById('admin-status');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      statusEl.textContent = '';
+      statusEl.className = 'admin-status';
+
+      var formData = new FormData(form);
+
+      btn.disabled = true;
+      btn.textContent = 'Đang lưu...';
+
+      fetch('/api/posts', {
+        method: 'POST',
+        body: formData
+      })
+        .then(function(res) { return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+        .then(function(result) {
+          if (!result.ok) {
+            throw new Error(result.data && result.data.message ? result.data.message : 'Lỗi không xác định');
+          }
+
+          statusEl.textContent = 'Đăng bài thành công!';
+          statusEl.classList.add('admin-status--success');
+
+          setTimeout(function() {
+            window.location.reload();
+          }, 800);
+        })
+        .catch(function(err) {
+          console.error(err);
+          statusEl.textContent = 'Không thể đăng bài: ' + err.message;
+          statusEl.classList.add('admin-status--error');
+        })
+        .finally(function() {
+          btn.disabled = false;
+          btn.textContent = 'Đăng bài';
+        });
+    });
+  })();
+</script>
+
+</body>
+</html>
+
