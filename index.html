@@ -274,6 +274,9 @@
 
           posts.forEach(function (post) {
             var imgSrc = normalizeImg(post.img_introduce, 'images/blog/blog-thum-1.png');
+            if (post.updatedAt) {
+              imgSrc += '?v=' + encodeURIComponent(post.updatedAt);
+            }
             var link = 'single-blog.html?id=' + encodeURIComponent(post._id);
 
             var html =
@@ -342,6 +345,9 @@
 
         posts.forEach(function (post) {
           var imgSrc = normalizeImg(post.img_introduce, 'images/blog/blog-thum-8.png');
+          if (post.updatedAt) {
+            imgSrc += '?v=' + encodeURIComponent(post.updatedAt);
+          }
           var link = 'single-blog.html?id=' + encodeURIComponent(post._id);
 
           var html =

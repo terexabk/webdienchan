@@ -287,6 +287,9 @@
 
         // main image
         var mainImgSrc = normalizeImg(post.img_introduce, 'images/blog/blog-single.png');
+        if (post.updatedAt) {
+          mainImgSrc += '?v=' + encodeURIComponent(post.updatedAt);
+        }
         $article.find('> img').attr('src', mainImgSrc);
 
         // intro content: đoạn văn ngay sau ảnh chính
@@ -332,10 +335,18 @@
 
         var $bannerImgs = $article.find('.single-blog-banner img');
         if (hasImg1 && $bannerImgs.length >= 1) {
-          $bannerImgs.eq(0).attr('src', normalizeImg(post.img_block_1_1, $bannerImgs.eq(0).attr('src')));
+          var img1 = normalizeImg(post.img_block_1_1, $bannerImgs.eq(0).attr('src'));
+          if (post.updatedAt) {
+            img1 += '?v=' + encodeURIComponent(post.updatedAt);
+          }
+          $bannerImgs.eq(0).attr('src', img1);
         }
         if (hasImg2 && $bannerImgs.length >= 2) {
-          $bannerImgs.eq(1).attr('src', normalizeImg(post.img_block_1_2, $bannerImgs.eq(1).attr('src')));
+          var img2 = normalizeImg(post.img_block_1_2, $bannerImgs.eq(1).attr('src'));
+          if (post.updatedAt) {
+            img2 += '?v=' + encodeURIComponent(post.updatedAt);
+          }
+          $bannerImgs.eq(1).attr('src', img2);
         }
 
         // nếu không có cả 2 ảnh thì ẩn luôn banner block 1
