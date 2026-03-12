@@ -67,6 +67,106 @@
     }
     .admin-status--success { color: #16a34a; }
     .admin-status--error { color: #dc2626; }
+
+    .admin-menu {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 8px;
+    }
+    .admin-menu button {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+      color: #4b5563;
+    }
+    .admin-menu button.active {
+      background-color: #111827;
+      color: #fff;
+    }
+
+    .admin-post-list {
+      margin-top: 12px;
+    }
+    .admin-post-list ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+    .admin-post-list li {
+      margin-bottom: 6px;
+    }
+    .admin-post-list a {
+      cursor: pointer;
+    }
+    .admin-post-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 12px 12px 4px;
+      margin-bottom: 12px;
+      background-color: #f9fafb;
+    }
+    .admin-post-item h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    .admin-post-item .admin-form-group {
+      margin-bottom: 8px;
+    }
+    .admin-post-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+    .admin-post-actions button {
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .btn-save-post {
+      background-color: #111827;
+      color: #fff;
+    }
+    .btn-delete-post {
+      background-color: #dc2626;
+      color: #fff;
+    }
+    .admin-pagination {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .admin-pagination button {
+      min-width: 32px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .admin-pagination button.active {
+      background-color: #111827;
+      color: #fff;
+      border-color: #111827;
+    }
+    #admin-post-editor { margin-top: 12px; }
+    .btn-back-list {
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -74,7 +174,7 @@
 <nav class="main-nav navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" href="index.html">
-      <img class="logo-main" src="images/logo.svg" alt="logo" />
+      <img class="logo-main" src="images/logo-lat.png" alt="logo" />
     </a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mainNav">
       <span class="icon-bar"></span>
@@ -105,79 +205,133 @@
     <div class="row">
       <div class="col-lg-8 mx-auto">
         <div class="admin-card">
-          <h1>Đăng bài mới</h1>
-          <p>Nhập thông tin bài viết, nhấn <strong>“Đăng bài”</strong> để lưu vào MongoDB.</p>
+          <h1>Quản lý bài viết</h1>
 
-          <form id="admin-form" enctype="multipart/form-data">
-            <div class="admin-form-group">
-              <label for="title">Tiêu đề (title)</label>
-              <input type="text" id="title" name="title" required />
+          <div class="admin-menu">
+            <button type="button" id="tab-create" class="active">Đăng bài mới</button>
+            <button type="button" id="tab-update">Chỉnh sửa bài đã đăng</button>
+          </div>
+
+          <div id="admin-create-section">
+            <p>Nhập thông tin bài viết, nhấn <strong>“Đăng bài”</strong> để lưu vào MongoDB.</p>
+
+            <form id="admin-form" enctype="multipart/form-data">
+              <div class="admin-form-group">
+                <label for="title">Tiêu đề (title)</label>
+                <input type="text" id="title" name="title" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="audthor">Tác giả (audthor)</label>
+                <input type="text" id="audthor" name="audthor" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="datetime">Ngày giờ hiển thị (datetime)</label>
+                <input type="text" id="datetime" name="datetime" placeholder="VD: October 19, 2020 - 3 min read" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="img_introduce">Ảnh giới thiệu (img_introduce – chọn file ảnh)</label>
+                <input type="file" id="img_introduce" name="img_introduce" accept="image/*" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="content_introduce">Mô tả ngắn (content_introduce)</label>
+                <textarea id="content_introduce" name="content_introduce" required></textarea>
+              </div>
+
+              <hr />
+
+              <div class="admin-form-group">
+                <label for="title_block_1">Tiêu đề block 1 (title_block_1)</label>
+                <input type="text" id="title_block_1" name="title_block_1" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="content_block_1">Nội dung block 1 (content_block_1)</label>
+                <textarea id="content_block_1" name="content_block_1"></textarea>
+              </div>
+
+              <div class="admin-form-group">
+                <label for="hightlight_block_1">Đoạn highlight block 1 (hightlight_block_1)</label>
+                <input type="text" id="hightlight_block_1" name="hightlight_block_1" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="img_block_1_1">Ảnh block 1 - 1 (img_block_1_1 – chọn file)</label>
+                <input type="file" id="img_block_1_1" name="img_block_1_1" accept="image/*" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="img_block_1_2">Ảnh block 1 - 2 (img_block_1_2 – chọn file)</label>
+                <input type="file" id="img_block_1_2" name="img_block_1_2" accept="image/*" />
+              </div>
+
+              <hr />
+
+              <div class="admin-form-group">
+                <label for="title_block_2">Tiêu đề block 2 (title_block_2)</label>
+                <input type="text" id="title_block_2" name="title_block_2" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="content_block_2">Nội dung block 2 (content_block_2)</label>
+                <textarea id="content_block_2" name="content_block_2"></textarea>
+              </div>
+
+              <hr />
+
+              <div class="admin-form-group">
+                <label for="title_block_3">Tiêu đề block 3 (title_block_3)</label>
+                <input type="text" id="title_block_3" name="title_block_3" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="content_block_3">Nội dung block 3 (content_block_3)</label>
+                <textarea id="content_block_3" name="content_block_3"></textarea>
+              </div>
+
+              <hr />
+
+              <div class="admin-form-group">
+                <label for="title_block_4">Tiêu đề block 4 (title_block_4)</label>
+                <input type="text" id="title_block_4" name="title_block_4" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="content_block_4">Nội dung block 4 (content_block_4)</label>
+                <textarea id="content_block_4" name="content_block_4"></textarea>
+              </div>
+
+              <hr />
+
+              <div class="admin-form-group">
+                <label for="title_block_5">Tiêu đề block 5 (title_block_5)</label>
+                <input type="text" id="title_block_5" name="title_block_5" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="content_block_5">Nội dung block 5 (content_block_5)</label>
+                <textarea id="content_block_5" name="content_block_5"></textarea>
+              </div>
+
+              <div class="admin-actions">
+                <button type="submit" class="btn-dang-bai" id="btn-submit">Đăng bài</button>
+                <div id="admin-status" class="admin-status"></div>
+              </div>
+            </form>
+          </div>
+
+          <div id="admin-update-section" style="display:none">
+            <div id="admin-update-list-view">
+              <p>Chọn một bài viết bên dưới để chỉnh sửa hoặc xóa.</p>
+              <div id="admin-update-status" class="admin-status"></div>
+              <div id="admin-post-list" class="admin-post-list"></div>
+              <div id="admin-pagination" class="admin-pagination"></div>
             </div>
-
-            <div class="admin-form-group">
-              <label for="audthor">Tác giả (audthor)</label>
-              <input type="text" id="audthor" name="audthor" required />
-            </div>
-
-            <div class="admin-form-group">
-              <label for="datetime">Ngày giờ hiển thị (datetime)</label>
-              <input type="text" id="datetime" name="datetime" placeholder="VD: October 19, 2020 - 3 min read" required />
-            </div>
-
-            <div class="admin-form-group">
-              <label for="img_introduce">Ảnh giới thiệu (img_introduce – chọn file ảnh)</label>
-              <input type="file" id="img_introduce" name="img_introduce" accept="image/*" required />
-            </div>
-
-            <div class="admin-form-group">
-              <label for="content_introduce">Mô tả ngắn (content_introduce)</label>
-              <textarea id="content_introduce" name="content_introduce" required></textarea>
-            </div>
-
-            <hr />
-
-            <div class="admin-form-group">
-              <label for="title_block_1">Tiêu đề block 1 (title_block_1)</label>
-              <input type="text" id="title_block_1" name="title_block_1" />
-            </div>
-
-            <div class="admin-form-group">
-              <label for="content_block_1">Nội dung block 1 (content_block_1)</label>
-              <textarea id="content_block_1" name="content_block_1"></textarea>
-            </div>
-
-            <div class="admin-form-group">
-              <label for="hightlight_block_1">Đoạn highlight block 1 (hightlight_block_1)</label>
-              <input type="text" id="hightlight_block_1" name="hightlight_block_1" />
-            </div>
-
-            <div class="admin-form-group">
-              <label for="img_block_1_1">Ảnh block 1 - 1 (img_block_1_1 – chọn file)</label>
-              <input type="file" id="img_block_1_1" name="img_block_1_1" accept="image/*" />
-            </div>
-
-            <div class="admin-form-group">
-              <label for="img_block_1_2">Ảnh block 1 - 2 (img_block_1_2 – chọn file)</label>
-              <input type="file" id="img_block_1_2" name="img_block_1_2" accept="image/*" />
-            </div>
-
-            <hr />
-
-            <div class="admin-form-group">
-              <label for="title_block_2">Tiêu đề block 2 (title_block_2)</label>
-              <input type="text" id="title_block_2" name="title_block_2" />
-            </div>
-
-            <div class="admin-form-group">
-              <label for="content_block_2">Nội dung block 2 (content_block_2)</label>
-              <textarea id="content_block_2" name="content_block_2"></textarea>
-            </div>
-
-            <div class="admin-actions">
-              <button type="submit" class="btn-dang-bai" id="btn-submit">Đăng bài</button>
-              <div id="admin-status" class="admin-status"></div>
-            </div>
-          </form>
+            <div id="admin-post-editor" style="display:none"></div>
+          </div>
 
         </div>
       </div>
@@ -190,7 +344,7 @@
     <div class="row">
       <div class="col-lg-6 mx-auto text-center">
         <div class="footer-logo">
-          <img src="images/logo.svg" alt="logo" />
+          <img src="images/logo-lat.png" alt="logo" />
         </div>
       </div>
     </div>
@@ -251,6 +405,336 @@
     var form = document.getElementById('admin-form');
     var btn = document.getElementById('btn-submit');
     var statusEl = document.getElementById('admin-status');
+    var updateStatusEl = document.getElementById('admin-update-status');
+    var listViewEl = document.getElementById('admin-update-list-view');
+    var postListEl = document.getElementById('admin-post-list');
+    var postEditorEl = document.getElementById('admin-post-editor');
+    var paginationEl = document.getElementById('admin-pagination');
+    var tabCreate = document.getElementById('tab-create');
+    var tabUpdate = document.getElementById('tab-update');
+    var createSection = document.getElementById('admin-create-section');
+    var updateSection = document.getElementById('admin-update-section');
+
+    var currentPage = 1;
+    var pageSize = 30;
+    var postsById = {};
+
+    function showListView() {
+      if (listViewEl) listViewEl.style.display = '';
+      if (postEditorEl) postEditorEl.style.display = 'none';
+    }
+
+    function showEditorView() {
+      if (listViewEl) listViewEl.style.display = 'none';
+      if (postEditorEl) postEditorEl.style.display = 'block';
+    }
+
+    function switchTab(tab) {
+      if (tab === 'create') {
+        tabCreate.classList.add('active');
+        tabUpdate.classList.remove('active');
+        createSection.style.display = 'block';
+        updateSection.style.display = 'none';
+      } else {
+        tabCreate.classList.remove('active');
+        tabUpdate.classList.add('active');
+        createSection.style.display = 'none';
+        updateSection.style.display = 'block';
+        showListView();
+        loadPosts(1);
+      }
+    }
+
+    if (tabCreate && tabUpdate) {
+      tabCreate.addEventListener('click', function () { switchTab('create'); });
+      tabUpdate.addEventListener('click', function () { switchTab('update'); });
+    }
+
+    function renderPagination(page, pages) {
+      if (!paginationEl) return;
+      paginationEl.innerHTML = '';
+      if (!pages || pages <= 1) return;
+
+      for (var i = 1; i <= pages; i++) {
+        (function (p) {
+          var btn = document.createElement('button');
+          btn.textContent = p;
+          if (p === page) {
+            btn.classList.add('active');
+          }
+          btn.addEventListener('click', function () {
+            loadPosts(p);
+          });
+          paginationEl.appendChild(btn);
+        })(i);
+      }
+    }
+
+    function createInput(label, value, className) {
+      var wrap = document.createElement('div');
+      wrap.className = 'admin-form-group';
+
+      var lab = document.createElement('label');
+      lab.textContent = label;
+      wrap.appendChild(lab);
+
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.value = value || '';
+      input.className = className;
+      wrap.appendChild(input);
+
+      return wrap;
+    }
+
+    function createTextarea(label, value, className) {
+      var wrap = document.createElement('div');
+      wrap.className = 'admin-form-group';
+
+      var lab = document.createElement('label');
+      lab.textContent = label;
+      wrap.appendChild(lab);
+
+      var ta = document.createElement('textarea');
+      ta.value = value || '';
+      ta.className = className;
+      wrap.appendChild(ta);
+
+      return wrap;
+    }
+
+    function renderPostEditor(post) {
+      if (!postEditorEl) return;
+      postEditorEl.innerHTML = '';
+
+      if (!post) return;
+
+      var backBtn = document.createElement('button');
+      backBtn.type = 'button';
+      backBtn.className = 'btn-back-list';
+      backBtn.textContent = '← Quay lại danh sách';
+      backBtn.addEventListener('click', function () {
+        showListView();
+      });
+      postEditorEl.appendChild(backBtn);
+
+      var item = document.createElement('div');
+      item.className = 'admin-post-item';
+      item.setAttribute('data-id', post._id);
+
+      var h3 = document.createElement('h3');
+      h3.textContent = post.title || '(Không có tiêu đề)';
+      item.appendChild(h3);
+
+      item.appendChild(createInput('Tiêu đề', post.title, 'field-title'));
+      item.appendChild(createInput('Tác giả', post.audthor, 'field-audthor'));
+      item.appendChild(createInput('Ngày giờ', post.datetime, 'field-datetime'));
+      item.appendChild(createTextarea('Mô tả ngắn', post.content_introduce, 'field-content-introduce'));
+
+      item.appendChild(createInput('Tiêu đề block 1', post.title_block_1, 'field-title-block-1'));
+      item.appendChild(createTextarea('Nội dung block 1', post.content_block_1, 'field-content-block-1'));
+      item.appendChild(createInput('Highlight block 1', post.hightlight_block_1, 'field-highlight-block-1'));
+
+      item.appendChild(createInput('Tiêu đề block 2', post.title_block_2, 'field-title-block-2'));
+      item.appendChild(createTextarea('Nội dung block 2', post.content_block_2, 'field-content-block-2'));
+
+      item.appendChild(createInput('Tiêu đề block 3', post.title_block_3, 'field-title-block-3'));
+      item.appendChild(createTextarea('Nội dung block 3', post.content_block_3, 'field-content-block-3'));
+
+      item.appendChild(createInput('Tiêu đề block 4', post.title_block_4, 'field-title-block-4'));
+      item.appendChild(createTextarea('Nội dung block 4', post.content_block_4, 'field-content-block-4'));
+
+      item.appendChild(createInput('Tiêu đề block 5', post.title_block_5, 'field-title-block-5'));
+      item.appendChild(createTextarea('Nội dung block 5', post.content_block_5, 'field-content-block-5'));
+
+      var actions = document.createElement('div');
+      actions.className = 'admin-post-actions';
+
+      var saveBtn = document.createElement('button');
+      saveBtn.type = 'button';
+      saveBtn.className = 'btn-save-post';
+      saveBtn.textContent = 'Lưu';
+
+      var deleteBtn = document.createElement('button');
+      deleteBtn.type = 'button';
+      deleteBtn.className = 'btn-delete-post';
+      deleteBtn.textContent = 'Xóa';
+
+      actions.appendChild(saveBtn);
+      actions.appendChild(deleteBtn);
+      item.appendChild(actions);
+
+      var itemStatus = document.createElement('div');
+      itemStatus.className = 'admin-status';
+      item.appendChild(itemStatus);
+
+      postEditorEl.appendChild(item);
+    }
+
+    function renderPosts(data) {
+      if (!postListEl) return;
+      postListEl.innerHTML = '';
+      postsById = {};
+
+      if (postEditorEl) {
+        postEditorEl.innerHTML = '';
+      }
+
+      if (!data || !data.length) {
+        postListEl.innerHTML = '<p>Chưa có bài viết nào.</p>';
+        return;
+      }
+
+      var ul = document.createElement('ul');
+
+      data.forEach(function (post) {
+        if (!post || !post._id) return;
+        postsById[post._id] = post;
+
+        var li = document.createElement('li');
+        var link = document.createElement('a');
+        link.href = '#';
+        link.textContent = post.title || '(Không có tiêu đề)';
+        link.setAttribute('data-id', post._id);
+        li.appendChild(link);
+        ul.appendChild(li);
+      });
+
+      postListEl.appendChild(ul);
+    }
+
+    function loadPosts(page) {
+      if (!postListEl) return;
+      currentPage = page || 1;
+      postListEl.innerHTML = 'Đang tải...';
+      if (updateStatusEl) {
+        updateStatusEl.textContent = '';
+        updateStatusEl.className = 'admin-status';
+      }
+
+      return fetch('/api/posts?page=' + currentPage + '&limit=' + pageSize)
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          renderPosts(data.items || []);
+          renderPagination(data.page || currentPage, data.pages || 1);
+        })
+        .catch(function (err) {
+          console.error(err);
+          postListEl.innerHTML = '<p>Không tải được danh sách bài viết.</p>';
+        });
+    }
+
+    if (postListEl) {
+      postListEl.addEventListener('click', function (e) {
+        var target = e.target;
+        if (target.tagName !== 'A') return;
+        e.preventDefault();
+        var id = target.getAttribute('data-id');
+        if (!id) return;
+        var post = postsById[id];
+        if (!post) return;
+        showEditorView();
+        renderPostEditor(post);
+      });
+    }
+
+    if (updateSection) {
+      updateSection.addEventListener('click', function (e) {
+        var target = e.target;
+        var item = target.closest('.admin-post-item');
+        if (!item) return;
+        var id = item.getAttribute('data-id');
+        if (!id) return;
+
+        var statusNode = item.querySelector('.admin-status');
+
+        if (target.classList.contains('btn-save-post')) {
+          if (statusNode) {
+            statusNode.textContent = 'Đang lưu...';
+            statusNode.className = 'admin-status';
+          }
+
+          var payload = {
+            title: (item.querySelector('.field-title') || {}).value || '',
+            audthor: (item.querySelector('.field-audthor') || {}).value || '',
+            datetime: (item.querySelector('.field-datetime') || {}).value || '',
+            content_introduce: (item.querySelector('.field-content-introduce') || {}).value || '',
+            title_block_1: (item.querySelector('.field-title-block-1') || {}).value || '',
+            content_block_1: (item.querySelector('.field-content-block-1') || {}).value || '',
+            hightlight_block_1: (item.querySelector('.field-highlight-block-1') || {}).value || '',
+            title_block_2: (item.querySelector('.field-title-block-2') || {}).value || '',
+            content_block_2: (item.querySelector('.field-content-block-2') || {}).value || '',
+            title_block_3: (item.querySelector('.field-title-block-3') || {}).value || '',
+            content_block_3: (item.querySelector('.field-content-block-3') || {}).value || '',
+            title_block_4: (item.querySelector('.field-title-block-4') || {}).value || '',
+            content_block_4: (item.querySelector('.field-content-block-4') || {}).value || '',
+            title_block_5: (item.querySelector('.field-title-block-5') || {}).value || '',
+            content_block_5: (item.querySelector('.field-content-block-5') || {}).value || '',
+          };
+
+          fetch('/api/posts/' + encodeURIComponent(id), {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          })
+            .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+            .then(function (result) {
+              if (!result.ok) {
+                throw new Error(result.data && result.data.message ? result.data.message : 'Lỗi không xác định');
+              }
+              if (statusNode) {
+                statusNode.textContent = 'Đã lưu thành công. Đang tải lại danh sách...';
+                statusNode.classList.add('admin-status--success');
+              }
+              var p = loadPosts(currentPage);
+              if (p && p.then) p.then(function () { showListView(); });
+              else showListView();
+            })
+            .catch(function (err) {
+              console.error(err);
+              if (statusNode) {
+                statusNode.textContent = 'Không thể lưu: ' + err.message;
+                statusNode.classList.add('admin-status--error');
+              }
+            });
+        }
+
+        if (target.classList.contains('btn-delete-post')) {
+          if (!window.confirm('Bạn có chắc chắn muốn xóa bài viết này?')) return;
+
+          if (statusNode) {
+            statusNode.textContent = 'Đang xóa...';
+            statusNode.className = 'admin-status';
+          }
+
+          fetch('/api/posts/' + encodeURIComponent(id), {
+            method: 'DELETE'
+          })
+            .then(function (res) {
+              if (!res.ok) {
+                return res.json().then(function (data) {
+                  throw new Error(data && data.message ? data.message : 'Lỗi không xác định');
+                });
+              }
+            })
+            .then(function () {
+              var p = loadPosts(currentPage);
+              if (postEditorEl) postEditorEl.innerHTML = '';
+              if (p && p.then) p.then(showListView);
+              else showListView();
+            })
+            .catch(function (err) {
+              console.error(err);
+              if (statusNode) {
+                statusNode.textContent = 'Không thể xóa: ' + err.message;
+                statusNode.classList.add('admin-status--error');
+              }
+            });
+        }
+      });
+    }
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();

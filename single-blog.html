@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Blogge | Personal Blog Site</title>
+  <title>Blog Nguyễn Liệu</title>
 
   <!--Meta For No Index-->
   <meta name="robots" content="noindex, Nofollow, Noimageindex">
@@ -27,7 +27,7 @@
   <div class="container">
     <!-- Logo -->
     <a class="navbar-brand" href="index.html">
-      <img class="logo-main" src="images/logo.svg" alt="logo" />
+      <img class="logo-main" src="images/logo-lat.png" alt="logo" />
     </a>
     <!-- Toogle Button -->
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mainNav">
@@ -185,7 +185,7 @@
     <div class="row">
       <div class="col-lg-6 mx-auto text-center">
         <div class="footer-logo">
-          <img src="images/logo.svg" alt="logo" />
+          <img src="images/logo-lat.png" alt="logo" />
         </div>
       </div>
     </div>
@@ -296,20 +296,29 @@
           $introP.html(introHtml);
         }
 
-        // block 1 title + content
+        // block 1 title + content + highlight
+        var $firstH3 = $article.find('h3').first();
+        var $block1P = $firstH3.next('p');
+        var $blockquote = $article.find('blockquote');
+
         if (post.title_block_1) {
-          $article.find('h3').first().text(post.title_block_1);
+          $firstH3.text(post.title_block_1);
         }
-        if (post.content_block_1) {
-          var blockP = $article.find('h3').first().next('p');
-          if (blockP.length) {
-            blockP.html(post.content_block_1.replace(/\n/g, '<br>'));
-          }
+        if (post.content_block_1 && $block1P.length) {
+          $block1P.html(post.content_block_1.replace(/\n/g, '<br>'));
+        }
+        if (post.hightlight_block_1 && $blockquote.length) {
+          $blockquote.find('p').text(post.hightlight_block_1);
         }
 
-        // highlight
-        if (post.hightlight_block_1) {
-          $article.find('blockquote p').text(post.hightlight_block_1);
+        // ẩn blockquote nếu không có highlight
+        if (!post.hightlight_block_1 && $blockquote.length) {
+          $blockquote.hide();
+        }
+
+        // nếu không có cả title_block_1 và hightlight_block_1 thì ẩn cả tiêu đề + highlight, vẫn cho phép hiển thị nội dung nếu có
+        if (!post.title_block_1 && !post.hightlight_block_1) {
+          if ($firstH3.length) $firstH3.hide();
         }
 
         // ẩn đoạn lorem mẫu ngay sau blockquote (không dùng DB)
@@ -352,6 +361,30 @@
             if ($p2.length) $p2.hide();
           }
         }
+
+        // block 3, 4, 5: title + content giống logic block 2
+        var extraBlocks = [
+          { title: post.title_block_3, content: post.content_block_3 },
+          { title: post.title_block_4, content: post.content_block_4 },
+          { title: post.title_block_5, content: post.content_block_5 }
+        ];
+
+        extraBlocks.forEach(function (b) {
+          if (!b.title && !b.content) return;
+
+          var $h3 = $('<h3></h3>');
+          var $p = $('<p></p>');
+
+          if (b.title) {
+            $h3.text(b.title);
+          }
+          if (b.content) {
+            $p.html(b.content.replace(/\n/g, '<br>'));
+          }
+
+          $article.append($h3);
+          $article.append($p);
+        });
 
         // prev / next navigation
         var $nav = $('.blog-single-presentation');

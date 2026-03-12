@@ -63,6 +63,12 @@ const postSchema = new mongoose.Schema(
     img_block_1_2: { type: String, default: '' },
     title_block_2: { type: String, default: '' },
     content_block_2: { type: String, default: '' },
+    title_block_3: { type: String, default: '' },
+    content_block_3: { type: String, default: '' },
+    title_block_4: { type: String, default: '' },
+    content_block_4: { type: String, default: '' },
+    title_block_5: { type: String, default: '' },
+    content_block_5: { type: String, default: '' },
     count: { type: Number, default: 0 },
   },
   {
@@ -181,6 +187,12 @@ app.post(
         img_block_1_2: imgB12Value,
         title_block_2: body.title_block_2 || '',
         content_block_2: body.content_block_2 || '',
+        title_block_3: body.title_block_3 || '',
+        content_block_3: body.content_block_3 || '',
+        title_block_4: body.title_block_4 || '',
+        content_block_4: body.content_block_4 || '',
+        title_block_5: body.title_block_5 || '',
+        content_block_5: body.content_block_5 || '',
       });
 
       res.status(201).json({ message: 'Tạo bài viết thành công.', post: post });
@@ -190,6 +202,62 @@ app.post(
     }
   }
 );
+
+// Cập nhật bài viết (chỉ cập nhật các field text, không xử lý upload ảnh)
+app.patch('/api/posts/:id', async function (req, res) {
+  try {
+    const body = req.body || {};
+    const update = {};
+
+    const fields = [
+      'title',
+      'audthor',
+      'datetime',
+      'content_introduce',
+      'title_block_1',
+      'content_block_1',
+      'hightlight_block_1',
+      'title_block_2',
+      'content_block_2',
+      'title_block_3',
+      'content_block_3',
+      'title_block_4',
+      'content_block_4',
+      'title_block_5',
+      'content_block_5',
+    ];
+
+    fields.forEach(function (key) {
+      if (Object.prototype.hasOwnProperty.call(body, key)) {
+        update[key] = body[key] || '';
+      }
+    });
+
+    const post = await Post.findByIdAndUpdate(req.params.id, { $set: update }, { new: true });
+    if (!post) {
+      return res.status(404).json({ message: 'Không tìm thấy bài viết.' });
+    }
+
+    res.json({ message: 'Cập nhật bài viết thành công.', post: post });
+  } catch (err) {
+    console.error('Error updating post:', err);
+    res.status(500).json({ message: 'Lỗi server khi cập nhật bài viết.' });
+  }
+});
+
+// Xóa bài viết
+app.delete('/api/posts/:id', async function (req, res) {
+  try {
+    const deleted = await Post.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ message: 'Không tìm thấy bài viết.' });
+    }
+    res.json({ message: 'Đã xóa bài viết.' });
+  } catch (err) {
+    console.error('Error deleting post:', err);
+    res.status(500).json({ message: 'Lỗi server khi xóa bài viết.' });
+  }
+});
 
 // Lấy danh sách bài viết (hỗ trợ phân trang)
 app.get('/api/posts', async function (req, res) {
