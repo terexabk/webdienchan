@@ -94,25 +94,26 @@ module.exports = async function handler(req, res) {
       let imgB11Value = buildImagePath(body.img_block_1_1);
       let imgB12Value = buildImagePath(body.img_block_1_2);
 
-      if (process.env.BLOB_READ_WRITE_TOKEN && files.img_introduce && files.img_introduce[0]) {
+      const hasBlobToken = !!process.env.BLOB_READ_WRITE_TOKEN;
+      if (hasBlobToken && files.img_introduce && files.img_introduce[0]) {
         try {
           imgIntroduceValue = await uploadToBlob(files.img_introduce[0].path);
         } catch (e) {
-          console.error('Blob upload img_introduce:', e);
+          console.error('Blob upload img_introduce:', e.message || e);
         }
       }
-      if (process.env.BLOB_READ_WRITE_TOKEN && files.img_block_1_1 && files.img_block_1_1[0]) {
+      if (hasBlobToken && files.img_block_1_1 && files.img_block_1_1[0]) {
         try {
           imgB11Value = await uploadToBlob(files.img_block_1_1[0].path);
         } catch (e) {
-          console.error('Blob upload img_block_1_1:', e);
+          console.error('Blob upload img_block_1_1:', e.message || e);
         }
       }
-      if (process.env.BLOB_READ_WRITE_TOKEN && files.img_block_1_2 && files.img_block_1_2[0]) {
+      if (hasBlobToken && files.img_block_1_2 && files.img_block_1_2[0]) {
         try {
           imgB12Value = await uploadToBlob(files.img_block_1_2[0].path);
         } catch (e) {
-          console.error('Blob upload img_block_1_2:', e);
+          console.error('Blob upload img_block_1_2:', e.message || e);
         }
       }
 
