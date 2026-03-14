@@ -211,6 +211,8 @@
 <script src="js/script.js"></script>
 <script>
   (function () {
+    var API_BASE = '';
+
     var form = document.getElementById('contact-form');
     if (!form) return;
 
@@ -243,7 +245,7 @@
         btn.textContent = 'Đang gửi...';
       }
 
-      fetch('/api/contact', {
+      fetch(API_BASE + '/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, email: email, message: message, agree: agree })

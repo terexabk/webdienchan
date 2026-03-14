@@ -249,9 +249,13 @@
       return urlParams.get(name);
     }
 
+    var API_BASE = '';
+    var LEGACY_IMAGE_ORIGIN = (window.location.hostname.indexOf('vercel.app') !== -1) ? 'https://banlabacsicuachinhminh.koyeb.app' : '';
+
     function normalizeImg(src, fallback) {
       if (!src) return fallback;
-      if (src.startsWith('/')) return src;
+      if (src.startsWith('http://') || src.startsWith('https://')) return src;
+      if (src.startsWith('/')) return LEGACY_IMAGE_ORIGIN + src;
       return 'images/blog/' + src;
     }
 
@@ -261,7 +265,7 @@
         return;
       }
 
-      $.get('/api/posts/' + encodeURIComponent(id), function (post) {
+      $.get(API_BASE + '/api/posts/' + encodeURIComponent(id), function (post) {
         if (!post || !post._id) return;
 
         var $article = $('.single-blog');

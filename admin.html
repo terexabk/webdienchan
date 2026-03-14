@@ -402,6 +402,8 @@
 
 <script>
   (function() {
+    var API_BASE = '';
+
     var form = document.getElementById('admin-form');
     var btn = document.getElementById('btn-submit');
     var statusEl = document.getElementById('admin-status');
@@ -612,7 +614,7 @@
         updateStatusEl.className = 'admin-status';
       }
 
-      return fetch('/api/posts?page=' + currentPage + '&limit=' + pageSize)
+      return fetch(API_BASE + '/api/posts?page=' + currentPage + '&limit=' + pageSize)
         .then(function (res) { return res.json(); })
         .then(function (data) {
           renderPosts(data.items || []);
@@ -672,7 +674,7 @@
             content_block_5: (item.querySelector('.field-content-block-5') || {}).value || '',
           };
 
-          fetch('/api/posts/' + encodeURIComponent(id), {
+          fetch(API_BASE + '/api/posts/' + encodeURIComponent(id), {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json'
@@ -709,7 +711,7 @@
             statusNode.className = 'admin-status';
           }
 
-          fetch('/api/posts/' + encodeURIComponent(id), {
+          fetch(API_BASE + '/api/posts/' + encodeURIComponent(id), {
             method: 'DELETE'
           })
             .then(function (res) {
@@ -747,7 +749,7 @@
       btn.disabled = true;
       btn.textContent = 'Đang lưu...';
 
-      fetch('/api/posts', {
+      fetch(API_BASE + '/api/posts', {
         method: 'POST',
         body: formData
       })

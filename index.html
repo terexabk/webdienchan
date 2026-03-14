@@ -214,9 +214,13 @@
   (function () {
     if (typeof window.$ !== 'function') return;
 
+    var API_BASE = '';
+    var LEGACY_IMAGE_ORIGIN = (window.location.hostname.indexOf('vercel.app') !== -1) ? 'https://banlabacsicuachinhminh.koyeb.app' : '';
+
     function normalizeImg(src, fallback) {
       if (!src) return fallback;
-      if (src.startsWith('/')) return src;
+      if (src.startsWith('http://') || src.startsWith('https://')) return src;
+      if (src.startsWith('/')) return LEGACY_IMAGE_ORIGIN + src;
       return 'images/blog/' + src;
     }
 
@@ -225,7 +229,7 @@
       var totalPages = 1;
 
       function renderArticlesPage(page) {
-        $.get('/api/posts', { page: page, limit: 7 }, function (res) {
+        $.get(API_BASE + '/api/posts', { page: page, limit: 7 }, function (res) {
           var posts = Array.isArray(res) ? res : (res.items || []);
           if (!posts.length) return;
 
@@ -335,7 +339,7 @@
         renderArticlesPage(page);
       });
       // trending posts (top 4 theo count)
-      $.get('/api/posts/trending', function (posts) {
+      $.get(API_BASE + '/api/posts/trending', function (posts) {
         if (!Array.isArray(posts) || !posts.length) return;
 
         var $wrap = $('#trending-posts');
