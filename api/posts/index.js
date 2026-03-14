@@ -116,17 +116,12 @@ module.exports = async function handler(req, res) {
         }
       }
 
-      if (!body.title || !body.audthor || !body.datetime || !imgIntroduceValue || !body.content_introduce) {
-        res.status(400).json({ message: 'Thiếu dữ liệu bắt buộc.' });
-        return;
-      }
-
       const post = await Post.create({
-        title: body.title,
-        audthor: body.audthor,
-        datetime: body.datetime,
-        img_introduce: imgIntroduceValue,
-        content_introduce: body.content_introduce,
+        title: (body.title || '').trim(),
+        audthor: (body.audthor || '').trim(),
+        datetime: (body.datetime || '').trim(),
+        img_introduce: imgIntroduceValue || '',
+        content_introduce: (body.content_introduce || '').trim(),
         title_block_1: body.title_block_1 || '',
         content_block_1: body.content_block_1 || '',
         hightlight_block_1: body.hightlight_block_1 || '',

@@ -51,11 +51,11 @@ mongoose
 // ===== Mongoose model =====
 const postSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    audthor: { type: String, required: true },
-    datetime: { type: String, required: true },
-    img_introduce: { type: String, required: true },
-    content_introduce: { type: String, required: true },
+    title: { type: String, default: '' },
+    audthor: { type: String, default: '' },
+    datetime: { type: String, default: '' },
+    img_introduce: { type: String, default: '' },
+    content_introduce: { type: String, default: '' },
     title_block_1: { type: String, default: '' },
     content_block_1: { type: String, default: '' },
     hightlight_block_1: { type: String, default: '' },
@@ -170,16 +170,12 @@ app.post(
         ? '/uploads/' + fileB1_2.filename
         : buildImagePath(body.img_block_1_2);
 
-      if (!body.title || !body.audthor || !body.datetime || !imgIntroduceValue || !body.content_introduce) {
-        return res.status(400).json({ message: 'Thiếu dữ liệu bắt buộc.' });
-      }
-
       const post = await Post.create({
-        title: body.title,
-        audthor: body.audthor,
-        datetime: body.datetime,
-        img_introduce: imgIntroduceValue,
-        content_introduce: body.content_introduce,
+        title: (body.title || '').trim(),
+        audthor: (body.audthor || '').trim(),
+        datetime: (body.datetime || '').trim(),
+        img_introduce: imgIntroduceValue || '',
+        content_introduce: (body.content_introduce || '').trim(),
         title_block_1: body.title_block_1 || '',
         content_block_1: body.content_block_1 || '',
         hightlight_block_1: body.hightlight_block_1 || '',
