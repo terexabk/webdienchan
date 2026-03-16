@@ -334,10 +334,10 @@
         // images block 1
 
         var $bannerImgs = $article.find('.single-blog-banner img');
+        var $bannerBlocks = $article.find('.single-blog-banner .banner');
         var hasImg1 = !!post.img_block_1_1;
         var hasImg2 = !!post.img_block_1_2;
 
-        var $bannerImgs = $article.find('.single-blog-banner img');
         if (hasImg1 && $bannerImgs.length >= 1) {
           var img1 = normalizeImg(post.img_block_1_1, $bannerImgs.eq(0).attr('src'));
           if (post.updatedAt) {
@@ -351,6 +351,14 @@
             img2 += '?v=' + encodeURIComponent(post.updatedAt);
           }
           $bannerImgs.eq(1).attr('src', img2);
+        }
+
+        // nếu chỉ có 1 ảnh, ẩn block còn lại để layout không bị lỗi
+        if (hasImg1 && !hasImg2 && $bannerBlocks.length >= 2) {
+          $bannerBlocks.eq(1).hide();
+        }
+        if (!hasImg1 && hasImg2 && $bannerBlocks.length >= 1) {
+          $bannerBlocks.eq(0).hide();
         }
 
         // nếu không có cả 2 ảnh thì ẩn luôn banner block 1
